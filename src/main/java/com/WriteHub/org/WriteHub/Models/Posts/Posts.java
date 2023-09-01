@@ -1,27 +1,36 @@
 package com.WriteHub.org.WriteHub.Models.Posts;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 @Entity
 public class Posts {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String title;
     private String content;
     private String slug;
     private int author_id ;
     private int parent_id ;
     private int post_category_id;
+    @CreationTimestamp
+    @Column( columnDefinition = "DATETIME")
     private Date published_at;
+    @UpdateTimestamp
+    @Column( columnDefinition = "DATETIME")
     private Date updated_at;
+    @CreationTimestamp
+    @Column(nullable = false,updatable = false ,  columnDefinition = "DATETIME")
     private Date created_date;
 
     public Posts(){
 
     }
-    public Posts(int id, String title, String content, String slug, int author_id, int parent_id, int post_category_id, Date published_at) {
+    public Posts(int id, String title, String content, String slug, int author_id, int parent_id, int post_category_id) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -29,16 +38,11 @@ public class Posts {
         this.author_id = author_id;
         this.parent_id = parent_id;
         this.post_category_id = post_category_id;
-        this.published_at = published_at;
 
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -93,23 +97,14 @@ public class Posts {
         return published_at;
     }
 
-    public void setPublished_at(Date published_at) {
-        this.published_at = published_at;
-    }
 
     public Date getUpdated_at() {
         return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = new Date();
     }
 
     public Date getCreated_date() {
         return created_date;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = new Date();
-    }
+
 }
