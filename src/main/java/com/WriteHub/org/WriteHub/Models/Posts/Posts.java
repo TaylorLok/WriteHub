@@ -27,6 +27,10 @@ public class Posts {
     @Column(nullable = false,updatable = false ,  columnDefinition = "DATETIME")
     private Date created_date;
 
+    @Column(columnDefinition = "DATETIME")
+    private Date deleted_at;
+
+
     public Posts(){
 
     }
@@ -105,6 +109,15 @@ public class Posts {
     public Date getCreated_date() {
         return created_date;
     }
+
+    public Date getDeleted_at() {
+        return deleted_at;
+    }
+
+    public void setDeleted_at(Date deleted_at) {
+        this.deleted_at = deleted_at;
+    }
+
 
 
 }
