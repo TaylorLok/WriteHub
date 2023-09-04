@@ -24,20 +24,30 @@ public class User {
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "registration_date")
-    private Date registration_date;
+    @Column(name = "created_at")
+    private Date created_at;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_at")
+    private Date updated_at;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "deleted_at")
+    private Date deleted_at;
 
     // Constructors
     public User() {
         // Default constructor
     }
 
-    public User(int id, String username, String email, String password, Date registration_date) {
+    public User(int id, String username, String email, String password, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.registration_date = registration_date;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at;
     }
 
     public boolean isValidEmail() {
@@ -81,12 +91,28 @@ public class User {
         this.password = passwordEncoder.encode(password);
     }
 
-    public Date getRegistrationDate() {
-        return registration_date;
+    public Date getCreated_at() {
+        return created_at;
     }
 
-    public void setRegistrationDate(Date registration_date) {
-        this.registration_date = registration_date;
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Date getDeleted_at() {
+        return deleted_at;
+    }
+
+    public void setDeleted_at(Date deleted_at) {
+        this.deleted_at = deleted_at;
     }
 
     // toString method for debugging and logging
@@ -97,7 +123,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", registration_date=" + registration_date +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                ", deleted_at=" + deleted_at +
                 '}';
     }
 }
