@@ -1,4 +1,4 @@
-package com.WriteHub.org.WriteHub.Models.Posts;
+package com.WriteHub.org.WriteHub.Models.Post;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -6,9 +6,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 @Entity
-public class Posts {
+public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private String title;
@@ -31,10 +31,10 @@ public class Posts {
     private Date deleted_at;
 
 
-    public Posts(){
+    public Post(){
 
     }
-    public Posts(int id, String title, String content, String slug, int author_id, int parent_id, int post_category_id) {
+    public Post(int id, String title, String content, String slug, int author_id, int parent_id, int post_category_id) {
         this.id = id;
         this.title = title;
         this.content = content;

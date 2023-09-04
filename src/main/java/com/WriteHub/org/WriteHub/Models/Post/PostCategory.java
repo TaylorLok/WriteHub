@@ -1,4 +1,4 @@
-package com.WriteHub.org.WriteHub.Models.Posts;
+package com.WriteHub.org.WriteHub.Models.Post;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,10 +7,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 
 @Entity
-public class PostCategories {
+public class PostCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.AUTO )
     private int id;
     private String title;
     @Column(columnDefinition = "TEXT")
@@ -24,9 +24,9 @@ public class PostCategories {
     private  Date updated_at;
 
 
-    public PostCategories() {
+    public PostCategory() {
     }
-    public PostCategories(Integer id, String title, String description) {
+    public PostCategory(Integer id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;

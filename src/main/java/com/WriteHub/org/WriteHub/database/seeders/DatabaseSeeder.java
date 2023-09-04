@@ -1,7 +1,7 @@
 package com.WriteHub.org.WriteHub.database.seeders;
 
-import com.WriteHub.org.WriteHub.Models.Posts.PostCategories;
-import com.WriteHub.org.WriteHub.Repository.PostCategoriesRepository;
+import com.WriteHub.org.WriteHub.Models.Post.PostCategory;
+import com.WriteHub.org.WriteHub.Repository.PostCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class DatabaseSeeder {
 
     @Autowired
-    private PostCategoriesRepository postCategoriesRepository;
+    private PostCategoryRepository postCategoryRepository;
 
     @EventListener
     private void seed(ContextRefreshedEvent event){
@@ -27,14 +27,14 @@ public class DatabaseSeeder {
             String description = descriptions[i];
 
             // Check if a PostCategory with the same title or description already exists
-            PostCategories existingCategory = postCategoriesRepository.findPostCategoriesByTitleOrDescription(title, description);
+            PostCategory existingCategory = postCategoryRepository.findPostCategoriesByTitleOrDescription(title, description);
 
             if (existingCategory == null) {
                 // If it doesn't exist, create and save a new PostCategories instance
-                PostCategories postCategories = new PostCategories();
-                postCategories.setTitle(title);
-                postCategories.setDescription(description);
-                postCategoriesRepository.save(postCategories);
+                PostCategory postCategory = new PostCategory();
+                postCategory.setTitle(title);
+                postCategory.setDescription(description);
+                postCategoryRepository.save(postCategory);
             }
         }
     }

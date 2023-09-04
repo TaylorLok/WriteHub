@@ -1,9 +1,9 @@
 package com.WriteHub.org.WriteHub.Controller;
 
-import com.WriteHub.org.WriteHub.Models.Posts.PostCategories;
-import com.WriteHub.org.WriteHub.Repository.PostCategoriesRepository;
+import com.WriteHub.org.WriteHub.Models.Post.PostCategory;
+import com.WriteHub.org.WriteHub.Repository.PostCategoryRepository;
 import com.WriteHub.org.WriteHub.Repository.PostRepository;
-import com.WriteHub.org.WriteHub.Models.Posts.Posts;
+import com.WriteHub.org.WriteHub.Models.Post.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class PostController {
     @Autowired
     private PostRepository postRepositoryInterface;
     @Autowired
-    private  PostCategoriesRepository postCategoriesRepository;
+    private PostCategoryRepository postCategoryRepository;
 
     @PostMapping("/create/{post_category_id}")
     public String addPost(@RequestBody Map<String, String> requestPayload , @PathVariable int post_category_id) {
@@ -27,14 +27,14 @@ public class PostController {
         String slug = requestPayload.get("slug");
 
         // Check to see if post_category_id exists in database
-       PostCategories postCategoriesById =  postCategoriesRepository.findPostCategoriesById(post_category_id);
+       PostCategory postCategoryById =  postCategoryRepository.findPostCategoriesById(post_category_id);
 
         //If not then throw Bad Request Error
-        if (postCategoriesById == null) {
+        if (postCategoryById == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Incorrect post category ID");
         }
         //Creates a new instance of Posts and populate it with the payload data
-        Posts post = new Posts();
+        Post post = new Post();
         post.setTitle(title);
         post.setContent(content);
         post.setSlug(slug);
@@ -49,14 +49,14 @@ public class PostController {
     }
 
     @GetMapping("/list")
-    public Iterable<Posts> getPosts(){
+    public Iterable<Post> getPosts(){
         return postRepositoryInterface.findAll();
     }
 
     @GetMapping("/find/{id}")
-    public Posts findPostById(@PathVariable Integer id) {
+    public Post findPostById(@PathVariable Integer id) {
         //Find post by the provided id
-        Posts post = postRepositoryInterface.findPostById(id);
+        Post post = postRepositoryInterface.findPostById(id);
         Date getPostDeleted_at = post.getDeleted_at();
 
         if (getPostDeleted_at != null) {
@@ -66,9 +66,9 @@ public class PostController {
     }
 
     @PostMapping ("/delete/{id}")
-    public Posts deletePostById(@PathVariable Integer id) {
+    public Post deletePostById(@PathVariable Integer id) {
         //Find post by the provided id
-        Posts post = postRepositoryInterface.findPostById(id);
+        Post post = postRepositoryInterface.findPostById(id);
 
         if (post == null) {
             throw new ResponseStatusException(HttpStatus.OK, "No matching ID found");

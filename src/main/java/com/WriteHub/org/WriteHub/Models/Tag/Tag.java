@@ -1,11 +1,11 @@
-package com.WriteHub.org.WriteHub.Models.Tags;
+package com.WriteHub.org.WriteHub.Models.Tag;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 @Entity
-public class Tags {
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -19,10 +19,10 @@ public class Tags {
     @Column(columnDefinition = "DATETIME")
     private Date updated_at;
 
-    public Tags() {
+    public Tag() {
     }
 
-    public Tags(int id, String name, String description) {
+    public Tag(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
