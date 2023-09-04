@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -53,9 +54,29 @@ public class PostController {
     }
 
     @GetMapping("/find/{id}")
-    public Posts findPostById(@PathVariable Integer id){
-        return postRepositoryInterface.findPostById(id);
+    public Posts findPostById(@PathVariable Integer id) {
+        //Find post by the provided id
+        Posts post = postRepositoryInterface.findPostById(id);
+        Date getPostDeleted_at = post.getDeleted_at();
+
+        if (getPostDeleted_at != null) {
+            throw new ResponseStatusException(HttpStatus.OK, "No matching ID found");
+        }
+        return post;
     }
 
+    @PostMapping ("/delete/{id}")
+    public Posts deletePostById(@PathVariable Integer id) {
+        //Find post by the provided id
+        Posts post = postRepositoryInterface.findPostById(id);
+
+        if (post == null) {
+            throw new ResponseStatusException(HttpStatus.OK, "No matching ID found");
+        }
+            post.setDeleted_at(new Date());
+            postRepositoryInterface.save(post);
+//        postRepositoryInterface.delete(post);
+        throw new ResponseStatusException(HttpStatus.OK , "Post "+id+" Deleted");
+    }
 
 }
