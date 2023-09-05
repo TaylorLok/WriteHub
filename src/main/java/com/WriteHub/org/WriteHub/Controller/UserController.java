@@ -12,14 +12,16 @@ public class UserController {
     private UserRepository userRepositoryInterface;
 
     @PostMapping("/add")
-    public String addPost(@RequestPart int id, @RequestPart String username, @RequestPart String email, @RequestPart String password, @RequestPart Date registration_date) {
+    public String addPost(@RequestPart int id, @RequestPart String username, @RequestPart String email, @RequestPart String password, @RequestPart Date created_at, @RequestPart Date updated_at, @RequestPart Date deleted_at) {
         User user = new User();
         
         user.setId(id);
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);    
-        user.setRegistrationDate(registration_date);
+        user.setCreated_at(created_at);
+        user.setUpdated_at(updated_at);
+        user.setDeleted_at(deleted_at);
         
         return "Added new User";
     }

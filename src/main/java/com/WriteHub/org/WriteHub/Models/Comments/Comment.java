@@ -1,60 +1,54 @@
-package com.WriteHub.org.WriteHub.Models.Users;
+package com.WriteHub.org.WriteHub.Models.Comments;
 
 import jakarta.persistence.*;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.WriteHub.org.WriteHub.Models.Users.User;
+import com.WriteHub.org.WriteHub.Models.Users.Post;
+
 
 @Entity
-@Table(name = "users")
-public class User {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
+    
+    @Column(name = "text")
+    private String text;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user_id;
+    
+    @ManyToOne
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    private Post post_id;
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date created_at;
-
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updated_at;
-
+    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "deleted_at")
     private Date deleted_at;
 
     // Constructors
-    public User() {
+    public Comment() {
         // Default constructor
     }
 
-    public User(int id, String username, String email, String password, Date created_at, Date updated_at, Date deleted_at) {
+    public Comment(int id, String text, User user_id, Post post_id, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+        this.text = text;
+        this.user_id = user_id;
+        this.post_id = post_id;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
-    }
-
-    public boolean isValidEmail() {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     // Getters and setters
@@ -66,29 +60,28 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getText() {
+        return text;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getEmail() {
-        return email;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
     }
 
-    public String getPassword() {
-        return password;
+    public int getPost_id() {
+        return post_id;
     }
 
-    public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
+    public void setPost_id(Post post_id) {
+        this.post_id = post_id;
     }
 
     public Date getCreated_at() {
@@ -118,11 +111,11 @@ public class User {
     // toString method for debugging and logging
     @Override
     public String toString() {
-        return "User{" +
+        return "Comment{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", text='" + text + '\'' +
+                ", user_id=" + user_id +
+                ", post_id=" + post_id +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 ", deleted_at=" + deleted_at +
