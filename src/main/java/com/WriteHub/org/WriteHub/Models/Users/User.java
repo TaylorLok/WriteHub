@@ -1,5 +1,7 @@
 package com.WriteHub.org.WriteHub.Models.Users;
 
+
+public class User {
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.regex.Matcher;
