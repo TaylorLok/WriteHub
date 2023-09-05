@@ -49,21 +49,9 @@ public class PostController {
     }
 
     @GetMapping("/list")
-    public Iterable<Post> getPosts(){
-        return postRepositoryInterface.findAll();
-    }
-
-    @GetMapping("/find/{id}")
-    public Post findPostById(@PathVariable Integer id) {
-        //Find post by the provided id
-        Post post = postRepositoryInterface.findPostById(id);
-        Date getPostDeleted_at = post.getDeleted_at();
-
-        if (getPostDeleted_at != null) {
-            throw new ResponseStatusException(HttpStatus.OK, "No matching ID found");
-        }
-        return post;
-    }
+  public Iterable<Post> getPosts(){
+    return postRepositoryInterface.findAll();
+  }
 
     @PostMapping ("/delete/{id}")
     public Post deletePostById(@PathVariable Integer id) {
@@ -75,8 +63,12 @@ public class PostController {
         }
             post.setDeleted_at(new Date());
             postRepositoryInterface.save(post);
-//        postRepositoryInterface.delete(post);
+          //postRepositoryInterface.delete(post);
         throw new ResponseStatusException(HttpStatus.OK , "Post "+id+" Deleted");
+    }
+
+    public Posts findPostById(@PathVariable Integer id){
+        return postRepositoryInterface.findPostById(id);
     }
 
 }
